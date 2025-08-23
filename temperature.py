@@ -6,7 +6,7 @@ import ttkbootstrap as ttk # Takes all ttk-widgets and adds more styling options
 # root = tk.Tk()
 root = ttk.Window(themename='darkly')
 # root = ttk.Window(themename='journal')
-root.title('°C to °F')
+root.title('Temperature Converter')
 root.geometry('400x150')
 
 # Functions
@@ -24,7 +24,7 @@ def test():
     print('Test')
 
 
-state = [(c_f, 'Celsius --> Fahrenheit', 'C/F'),(f_c, 'Fahrenheit --> Celsius', 'F/C')]
+state = [(c_f, 'Celsius --> Fahrenheit'),(f_c, 'Fahrenheit --> Celsius')]
 # Dynamic switch button 
 def switch():
     arg = state.pop(0) 
@@ -32,29 +32,25 @@ def switch():
 
     button_convert.config(command = arg[0])
     title_string.set(arg[1])
-    switch_string.set(arg[2])    
 
 
 # tk-Variables
 title_string = tk.StringVar(value='Celsius --> Fahrenheit')
 entry_int = tk.IntVar()
 output_string = tk.StringVar()
-switch_string = tk.StringVar(value='C/F')
 
 
 # title 
-title_label = ttk.Label(master=root, textvariable = title_string, font='Calibri 14 bold' )
-title_label.pack(pady=15)
+title_button = ttk.Button(master=root, textvariable = title_string, command= switch)
+title_button.pack(pady=15)
 
 
 # input field
 input_frame = ttk.Frame(master=root)
-button_switch= ttk.Button(master=input_frame, textvariable=switch_string , command= switch)
 entry = ttk.Entry(master=input_frame, textvariable=entry_int, justify='center', width=10)
 button_convert = ttk.Button(master=input_frame, text='Convert', command= c_f)
 
 input_frame.pack()
-button_switch.pack(side='left')
 entry.pack(side='left', padx=10)
 button_convert.pack(side='left')
 
