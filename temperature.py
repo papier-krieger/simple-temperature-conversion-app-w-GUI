@@ -11,20 +11,27 @@ root.geometry('400x150')
 
 # Functions
 def c_f():
-    celsius = entry_int.get()
-    fahrenheit = celsius*9/5 +32
-    output_string.set(fahrenheit)
+    try:
+        celsius = float(entry_string.get())
+        fahrenheit = celsius*9/5 +32
+        output_string.set(fahrenheit)
+    except:
+        output_string.set('ERROR')
+    
 
 def f_c():
-    fahrenheit = entry_int.get()
-    celsius = (fahrenheit -32)*5/9
-    output_string.set(celsius)
+    try:
+        fahrenheit = float(entry_string.get())
+        celsius = (fahrenheit -32)*5/9
+        output_string.set(celsius)
+    except:
+        output_string.set('ERROR')
+        
 
-def test():
-    print('Test')
+def clear_entry(whatever):
+    entry_string.set('')
 
-
-state = [(c_f, 'Celsius --> Fahrenheit'),(f_c, 'Fahrenheit --> Celsius')]
+state = [(c_f, 'Celsius  -->  Fahrenheit'),(f_c, 'Fahrenheit  -->  Celsius')]
 # Dynamic switch button 
 def switch():
     arg = state.pop(0) 
@@ -35,8 +42,8 @@ def switch():
 
 
 # tk-Variables
-title_string = tk.StringVar(value='Celsius --> Fahrenheit')
-entry_int = tk.IntVar()
+title_string = tk.StringVar(value='Fahrenheit  -->  Celsius')
+entry_string = tk.StringVar()
 output_string = tk.StringVar()
 
 
@@ -47,8 +54,11 @@ title_button.pack(pady=15)
 
 # input field
 input_frame = ttk.Frame(master=root)
-entry = ttk.Entry(master=input_frame, textvariable=entry_int, justify='center', width=10)
-button_convert = ttk.Button(master=input_frame, text='Convert', command= c_f)
+entry = ttk.Entry(master=input_frame, textvariable=entry_string, justify='center', width=10)
+button_convert = ttk.Button(master=input_frame, text='Convert', command= f_c)
+
+# bind left-click event to clear_entry function 
+entry.bind('<Button-1>', clear_entry)
 
 input_frame.pack()
 entry.pack(side='left', padx=10)
